@@ -32,7 +32,7 @@ const App = createStackNavigator({
   MemoCreate: { screen: MemoCreateScreen },
 }, {
   defaultNavigationOptions: {
-    title: 'Memot',
+    title: 'プロフィール管理',
     headerTintColor: '#fff',
     headerBackTitle: null,
     headerStyle: {

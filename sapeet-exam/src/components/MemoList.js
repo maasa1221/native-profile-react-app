@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, FlatList } from 'react-native';
+import { Container, Content, Header, Left, Button, Item, Input, Badge,Thumbnail } from 'native-base'
+
+import { StyleSheet, View, Text, TouchableHighlight, FlatList} from 'react-native';
+const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
+
+
 
 const dateString = (date) => {
   const str = date.toDate().toISOString();
@@ -7,12 +12,15 @@ const dateString = (date) => {
 };
 
 class MemoList extends React.Component {
+
   renderMemo({ item }) {
     console.log(item);
     return (
       <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item}); }}>
           <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>{item.body.substring(0, 10)}</Text>
+            <Thumbnail large source={{uri: item.my_photo? item.my_photo : tempAvatar}} style={styles.avatar}/>
+            <Text style={styles.memoTitle}>{item.name.substring(0, 10)}</Text>
+            <Text style={styles.memoTitle}>{item.sex.substring(0, 10)}</Text>
             <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>
           </View>
       </TouchableHighlight>
