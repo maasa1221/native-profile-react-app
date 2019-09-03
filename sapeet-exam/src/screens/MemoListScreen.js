@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import firebase from 'firebase';
-
+import axios from 'axios'
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 // import { get } from 'https';
@@ -10,20 +10,29 @@ import CircleButton from '../elements/CircleButton';
 
 class MemoListScreen extends React.Component {
   state = {
-    memoList: [],
+    proList:[],
   }
 
   componentWillMount() {
-    const { currentUser } = firebase.auth();
+    /*const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     db.collection(`users/${currentUser.uid}/profile`)
     .onSnapshot((snapshot) => {
-      const memoList = [];
+      const proList = [];
         snapshot.forEach((doc) => {
-          memoList.push({ ...doc.data(), key: doc.id });
+          proList.push({ ...doc.data(), key: doc.id });
         });
-        this.setState({ memoList });
-    });
+        this.setState({proList});
+    });*/
+    axios.get('http://localhost:3001/profiles')
+    .then((results) => {
+      console.log(results)
+      this.setState({proList: results.data})
+    })
+    .catch((data) =>{
+      console.log(data)
+    })
+    
   }
 
   handlePress() {
@@ -33,7 +42,7 @@ class MemoListScreen extends React.Component {
   render() {
     return (
     <View style={styles.container}>
-      <MemoList memoList={this.state.memoList} navigation={this.props.navigation} />
+      <MemoList memoList={this.state.proList} navigation={this.props.navigation} />
       <CircleButton name="plus" onPress={this.handlePress.bind(this)}/>
     </View>
     );

@@ -1,20 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Container, Content, Header, Left, Thumbnail, Button, Item, Input, Badge } from 'native-base'
-
-import firebase from 'firebase';
+import axios from "axios"
+//import firebase from 'firebase';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import CircleButton from '../elements/CircleButton';
-
+import update from 'react-addons-update'
 
 class MemoCreateScreen extends React.Component {
   state = {
-    name: '',
-    sex: '',
-    height: '',
-    age: '',
-    my_photo: null,
+    name: 'ううう',
+    
+    
   }
 
   pickImage = async () => {
@@ -43,25 +41,20 @@ class MemoCreateScreen extends React.Component {
   updateProfile = async (properties) => {
     try{
       this.setState({ uploading: true })
-
       let downloadUrl = null
       if (this.state.avatar) {
         downloadUrl = await uploadAvatar(this.state.avatar)
       }
-
       const batch = db.batch()
       const userRef = userCollection.doc(this.props.user.uid)
-
       await batch.set(userRef, { name: properties.name, avatar: downloadUrl })
       await batch.commit().then(() => {
         console.log('edit user success.')
       })
-
       this.setState({
         name: null,
         avatar: null,
       })
-
       this.props.navigation.goBack()
     }
     catch(e) {
@@ -73,8 +66,19 @@ class MemoCreateScreen extends React.Component {
     }
   }
 
+  createProduct = (profile) => {
+    axios.post('http://localhost:3001/profiles',profile)
+    .then(() => {
+      this.props.navigation.goBack()
+    })
+    .catch(() =>{
+    })
+  }
+
   handlePress() {
-    const db = firebase.firestore();
+    
+    
+    /*const db = firebase.firestore();
     const { currentUser } = firebase.auth();
     db.collection(`users/${currentUser.uid}/profile`).add({
       name: this.state.name,
@@ -88,7 +92,10 @@ class MemoCreateScreen extends React.Component {
         this.props.navigation.goBack();
       })
       .catch(() => {
-      });
+      });*/
+      this.createProduct(this.state)
+      
+    //this.setState('')
 
   }
 

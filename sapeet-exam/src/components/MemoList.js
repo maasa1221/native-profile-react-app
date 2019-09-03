@@ -18,10 +18,9 @@ class MemoList extends React.Component {
     return (
       <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item}); }}>
           <View style={styles.memoListItem}>
-            <Thumbnail large source={{uri: item.my_photo? item.my_photo : tempAvatar}} style={styles.avatar}/>
+          <Thumbnail large source={{uri: item.my_photo? item.my_photo : tempAvatar}} style={styles.avatar}/>
             <Text style={styles.memoTitle}>{item.name.substring(0, 10)}</Text>
-            <Text style={styles.memoTitle}>{item.sex.substring(0, 10)}</Text>
-            <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>
+            <Text style={styles.memoTitle}>{item.updated_at.substring(0, 10)}</Text>
           </View>
       </TouchableHighlight>
     );
@@ -30,7 +29,7 @@ class MemoList extends React.Component {
   render() {
     return (
       <View style={styles.memoList}>
-        <FlatList data={this.props.memoList} renderItem={this.renderMemo.bind(this)} />
+        <FlatList data={this.props.memoList} renderItem={this.renderMemo.bind(this)} keyExtractor={(item, index) => index.toString()} />
       </View>
     );
   }

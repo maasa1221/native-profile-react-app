@@ -6,7 +6,7 @@ import CircleButton from '../elements/CircleButton';
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
 
 const dateString = (date) => {
-  const str = date.toDate().toISOString();
+  const str = date;
   return str.split('T')[0];
 };
 
@@ -18,8 +18,7 @@ class MemoDetailScreen extends React.Component {
     sex: '',
     height: '',
     age: '',
-    my_photo: null,
-    createdOn: null,
+    updated_at: null,
   }
   
   handlePress() {
@@ -29,7 +28,9 @@ class MemoDetailScreen extends React.Component {
   componentWillMount() {
     const { params } = this.props.navigation.state;
     this.setState(params);
+   
   }
+  
   returnMemo(memo) {
     this.setState({ memo });
   }
@@ -42,7 +43,7 @@ class MemoDetailScreen extends React.Component {
           <View style={styles.memoHeader}>
             <View>
               <Text style={styles.memoHeaderTitle}>{memo.name.substring(0, 10)}</Text>
-              <Text style={styles.memoHeaderDate}>{dateString(memo.createdOn)}</Text>
+              <Text style={styles.memoHeaderDate}>{dateString(memo.updated_at)}</Text>
             </View>
           </View>
         </View>
