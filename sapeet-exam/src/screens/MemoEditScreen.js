@@ -27,7 +27,6 @@ class MemoEditScreen extends React.Component {
         isAccepted = false
       }
     }
-
     if(isAccepted) {
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
@@ -40,7 +39,7 @@ class MemoEditScreen extends React.Component {
       }
     }
   }
-
+/*
   updateProfile = async (properties) => {
     try{
       this.setState({ uploading: true })
@@ -72,7 +71,7 @@ class MemoEditScreen extends React.Component {
     finally {
       this.setState({ uploading: false })
     }
-  }
+  }*/
   handlePress() {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();

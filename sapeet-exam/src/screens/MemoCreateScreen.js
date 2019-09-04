@@ -6,7 +6,8 @@ import axios from "axios"
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import CircleButton from '../elements/CircleButton';
-import update from 'react-addons-update'
+import { connect,} from 'react-redux';
+import {mapStateToProps, mapDispatchToProps} from '../actions';
 
 class MemoCreateScreen extends React.Component {
   state = {
@@ -21,59 +22,20 @@ class MemoCreateScreen extends React.Component {
         isAccepted = false
       }
     }
-
     if(isAccepted) {
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [9, 9]
       })
-
       if (!result.cancelled) {
         this.setState({ my_photo: result.uri })
         console.log(result.uri)
       }
     }
   }
-
-  updateProfile = async (properties) => {
-    try{
-      this.setState({ uploading: true })
-      let downloadUrl = null
-      if (this.state.avatar) {
-        downloadUrl = await uploadAvatar(this.state.avatar)
-      }
-      const batch = db.batch()
-      const userRef = userCollection.doc(this.props.user.uid)
-      await batch.set(userRef, { name: properties.name, avatar: downloadUrl })
-      await batch.commit().then(() => {
-        console.log('edit user success.')
-      })
-      this.setState({
-        name: null,
-        avatar: null,
-      })
-      this.props.navigation.goBack()
-    }
-    catch(e) {
-      console.log(e)
-      alert('Upload avatar image failed, sorry :(')
-    }
-    finally {
-      this.setState({ uploading: false })
-    }
-  }
-
-  createProduct = (profile) => {
-    axios.post('http://localhost:3001/profiles',profile)
-    .then(() => {
-      this.props.navigation.goBack()
-    })
-    .catch(() =>{
-    })
-  }
-
   handlePress() {
-      this.createProduct(this.state)
+      this.props.postProfile(this.state)
+      this.props.navigation.goBack()
   }
 
   render() {
@@ -164,4 +126,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemoCreateScreen;
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemoCreateScreen)

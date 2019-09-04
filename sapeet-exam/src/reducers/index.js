@@ -12,25 +12,17 @@ const initialState = {
     updated_at: null,*/
   }
 }
-
-/*const reducer = handleActions({
-  [actions.setUserUid]: (state, action) => ({
-    ...state,
-    uid: action.payload,
-  }),
-  [actions.setUserProperties]: (state, action) => ({
-    ...state,
-    properties: action.payload,
-  })
-}, initialState)*/
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
       case 'SET_USER_PROFILES':
-          //console.log(action.profile)
         return {profile: action.profile}
-      /*case UPDATE_POST_SUCCESS:
-        return action.post;*/
+
+      case 'CREATE_USER_PROFILES':
+          return action.post
+          
+      case 'UPDATE_USER_PROFILES':
+        return action.post
+
       default:
         return state;
   }

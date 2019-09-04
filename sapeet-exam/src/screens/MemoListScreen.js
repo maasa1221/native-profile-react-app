@@ -6,11 +6,17 @@ import { connect,} from 'react-redux';
 import {mapStateToProps, mapDispatchToProps} from '../actions';
 
 class MemoListScreen extends React.Component {
+  componentWillMount(){
+    this.props.getProfile()
+  }
+  componentWillUpdate(){
+    this.props.getProfile()
+  }
   handlePress() {
     this.props.navigation.navigate('MemoCreate');
   }
   render() {
-    this.props.getProfile()
+    
     return (
         <View style={styles.container}>
           <MemoList memoList={this.props.profile} navigation={this.props.navigation} />

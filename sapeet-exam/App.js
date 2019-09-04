@@ -35,9 +35,7 @@ const AppNavigator = createStackNavigator({
 });
 AppContainer = createAppContainer(AppNavigator);
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-}
+  
   render() {
     return (
       <Provider store={ store }>
