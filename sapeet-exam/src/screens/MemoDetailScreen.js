@@ -14,7 +14,6 @@ const dateString = (date) => {
 
 class MemoDetailScreen extends React.Component {
   state = {
-    
   }
   
   handlePress() {

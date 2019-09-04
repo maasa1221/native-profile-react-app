@@ -73,27 +73,7 @@ class MemoCreateScreen extends React.Component {
   }
 
   handlePress() {
-    
-    
-    /*const db = firebase.firestore();
-    const { currentUser } = firebase.auth();
-    db.collection(`users/${currentUser.uid}/profile`).add({
-      name: this.state.name,
-      sex: this.state.sex,
-      height: this.state.height,
-      age: this.state.age,
-      my_photo: this.state.my_photo,
-      createdOn: new Date(),
-    })
-      .then(() => {
-        this.props.navigation.goBack();
-      })
-      .catch(() => {
-      });*/
       this.createProduct(this.state)
-      
-    //this.setState('')
-
   }
 
   render() {

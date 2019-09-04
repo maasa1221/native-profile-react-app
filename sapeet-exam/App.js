@@ -1,30 +1,21 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import firebase from 'firebase';
-
+import React from 'react';
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import { createStore,applyMiddleware,compose, } from 'redux'
+import reducer from './src/reducers';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import composeWithDevTools from 'remote-redux-devtools';
 
-import ENV from './env.json';
+const store = createStore(reducer,applyMiddleware(thunk))
 
-require("firebase/firestore");
-
-const firebaseConfig = {
-  apiKey: ENV.FIREBASE_API_KEY,
-  authDomain: ENV.FIREBASE_AUTH_DOMAIN,
-  databaseURL: ENV.FIREBASE_DB_URL,
-  projectId: ENV.FIREBASE_PRJ_ID,
-  storageBucket: ENV.FIREBASE_STORAGE,
-  messagingSenderId: ENV.FIREBASE_SENDER_ID,
-  // appId: ENV.FIREBASE_APP_ID,
-};
-firebase.initializeApp(firebaseConfig);
-
-const App = createStackNavigator({
-  Login:      { screen: LoginScreen },
+const AppNavigator = createStackNavigator({
+  Login:      { screen: MemoListScreen },
   Signup:     { screen: SignupScreen },
   Home:       { screen: MemoListScreen },
   MemoDetail: { screen: MemoDetailScreen },
@@ -43,5 +34,15 @@ const App = createStackNavigator({
     },
   },
 });
+AppContainer = createAppContainer(AppNavigator);
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={ store }>
+        <AppContainer />
+      </Provider>
+    );
+  }
+}
 
-export default createAppContainer(App);
+export default App;

@@ -16,6 +16,7 @@ class MemoList extends React.Component {
   renderMemo({ item }) {
     console.log(item);
     return (
+      
       <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item}); }}>
           <View style={styles.memoListItem}>
           <Thumbnail large source={{uri: item.my_photo? item.my_photo : tempAvatar}} style={styles.avatar}/>
@@ -23,6 +24,7 @@ class MemoList extends React.Component {
             <Text style={styles.memoTitle}>{item.updated_at.substring(0, 10)}</Text>
           </View>
       </TouchableHighlight>
+      
     );
   }
 
