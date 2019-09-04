@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 /*
 export const SET_USER_PROFILES = 'SET_USER_PROFILES'
 
@@ -31,15 +32,18 @@ export const getPost = () => {
   }
 )*/
 export function mapStateToProps(state) {
+  //console.log(state)
   return state;
+
 }
 
 export function mapDispatchToProps(dispatch) {
   return{
     getProfile: () => {
-      return axios.get('http://localhost:3001/profiles')
+        axios.get('http://localhost:3001/profiles')
         .then((response) => {
-          dispatch({type:SET_USER_PROFILES, profile: results.data})
+            dispatch({type:'SET_USER_PROFILES', profile: response.data})
+            
         })
     }
   }

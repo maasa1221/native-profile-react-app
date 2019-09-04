@@ -10,7 +10,6 @@ import { createStore,applyMiddleware,compose, } from 'redux'
 import reducer from './src/reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import composeWithDevTools from 'remote-redux-devtools';
 
 const store = createStore(reducer,applyMiddleware(thunk))
 
@@ -36,6 +35,9 @@ const AppNavigator = createStackNavigator({
 });
 AppContainer = createAppContainer(AppNavigator);
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+}
   render() {
     return (
       <Provider store={ store }>
