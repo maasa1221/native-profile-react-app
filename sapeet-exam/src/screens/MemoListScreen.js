@@ -4,16 +4,14 @@ import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 import { getPost　} from '../actions'
 import { connect,} from 'react-redux';
-import { createStore } from 'redux'
-import reducer from '../reducers';
-
+import {mapStateToProps, mapDispatchToProps} from '../actions';
 class MemoListScreen extends React.Component {
   state = {
     profile:[],
   }
 
   componentWillMount() {
-    this.props.getPost()
+    this.setState({profile: this.props.getProfile()})
     /*axios.get('http://localhost:3001/profiles')
     .then((results) => {
       console.log(results)
@@ -51,7 +49,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ profile }) => ({ profile })
-const mapDispatchToProps = { getPost }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MemoListScreen)

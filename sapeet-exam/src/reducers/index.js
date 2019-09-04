@@ -24,17 +24,20 @@ const initialState = {
   })
 }, initialState)*/
 
-export function post(state = {}, action) {
+export function reducer(state = {}, action) {
   switch (action.type) {
       case SET_USER_PROFILES:
-        return action.post;
+        return {
+          ...state,
+          profile:action.post
+        }
       /*case UPDATE_POST_SUCCESS:
         return action.post;*/
       default:
         return state;
   }
 }
-
 export default combineReducers({
-  post
+  reducer
 })
+
