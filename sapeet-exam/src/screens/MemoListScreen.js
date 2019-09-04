@@ -10,7 +10,7 @@ import CircleButton from '../elements/CircleButton';
 
 class MemoListScreen extends React.Component {
   state = {
-    proList:[],
+    profile:[],
   }
 
   componentWillMount() {
@@ -27,7 +27,7 @@ class MemoListScreen extends React.Component {
     axios.get('http://localhost:3001/profiles')
     .then((results) => {
       console.log(results)
-      this.setState({proList: results.data})
+      this.setState({profile: results.data})
     })
     .catch((data) =>{
       console.log(data)
@@ -42,7 +42,7 @@ class MemoListScreen extends React.Component {
   render() {
     return (
     <View style={styles.container}>
-      <MemoList memoList={this.state.proList} navigation={this.props.navigation} />
+      <MemoList memoList={this.state.profile} navigation={this.props.navigation} />
       <CircleButton name="plus" onPress={this.handlePress.bind(this)}/>
     </View>
     );

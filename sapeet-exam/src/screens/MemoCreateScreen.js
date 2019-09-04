@@ -10,9 +10,6 @@ import update from 'react-addons-update'
 
 class MemoCreateScreen extends React.Component {
   state = {
-    name: 'ううう',
-    
-    
   }
 
   pickImage = async () => {
