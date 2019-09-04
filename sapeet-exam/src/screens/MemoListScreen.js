@@ -6,14 +6,11 @@ import { connect,} from 'react-redux';
 import {mapStateToProps, mapDispatchToProps} from '../actions';
 
 class MemoListScreen extends React.Component {
-  componentWillMount() {
-    this.props.getProfile()
-    console.log(this.props.reducer)
-  }
   handlePress() {
     this.props.navigation.navigate('MemoCreate');
   }
   render() {
+    this.props.getProfile()
     return (
         <View style={styles.container}>
           <MemoList memoList={this.props.profile} navigation={this.props.navigation} />
@@ -22,7 +19,6 @@ class MemoListScreen extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -30,6 +26,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFDF6',
   },
 });
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(MemoListScreen)

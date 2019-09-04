@@ -5,18 +5,9 @@ import { StyleSheet, View, Text, TouchableHighlight, FlatList} from 'react-nativ
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
 
 
-
-const dateString = (date) => {
-  const str = date.toDate().toISOString();
-  return str.split('T')[0];
-};
-
 class MemoList extends React.Component {
-
   renderMemo({ item }) {
-    console.log(item);
     return (
-      
       <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item}); }}>
           <View style={styles.memoListItem}>
           <Thumbnail large source={{uri: item.my_photo? item.my_photo : tempAvatar}} style={styles.avatar}/>
@@ -24,10 +15,8 @@ class MemoList extends React.Component {
             <Text style={styles.memoTitle}>{item.updated_at.substring(0, 10)}</Text>
           </View>
       </TouchableHighlight>
-      
     );
   }
-
   render() {
     return (
       <View style={styles.memoList}>
