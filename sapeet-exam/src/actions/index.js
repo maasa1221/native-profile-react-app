@@ -3,7 +3,7 @@ import axios from 'axios'
 export function mapStateToProps(state) {
   return state;
 }
-
+id=1
 export function mapDispatchToProps(dispatch) {
   return{
     getProfile: () => {
@@ -17,6 +17,12 @@ export function mapDispatchToProps(dispatch) {
       .then(() => {
           dispatch({type:'CREATE_USER_PROFILES'})
       })
-  }
+    },
+    putProfile: (prof) => {
+      axios.put('http://localhost:3001/profiles/'+ id,prof)
+      .then(() => {
+          dispatch({type:'UPDATE_USER_PROFILES'})
+      })
+    }
   }
 }

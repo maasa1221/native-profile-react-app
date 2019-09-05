@@ -18,10 +18,10 @@ export default function reducer(state = initialState, action) {
         return {profile: action.profile}
 
       case 'CREATE_USER_PROFILES':
-          return action.post
+          return 
           
       case 'UPDATE_USER_PROFILES':
-        return action.post
+        return 
 
       default:
         return state;

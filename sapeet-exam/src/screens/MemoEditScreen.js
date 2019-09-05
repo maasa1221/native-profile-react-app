@@ -5,18 +5,15 @@ import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import { connect,} from 'react-redux';
+import {mapStateToProps, mapDispatchToProps} from '../actions';
 
 
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
 
 class MemoEditScreen extends React.Component {
   state = {
-    name: 'あ',
-    sex: '',
-    height: '',
-    age: '',
-    my_photo: null,
-    createdOn: null,
+    
   }
   pickImage = async () => {
     let isAccepted = true
@@ -73,7 +70,9 @@ class MemoEditScreen extends React.Component {
     }
   }*/
   handlePress() {
-    const { currentUser } = firebase.auth();
+    this.props.putProfile(this.state)
+    this.props.navigation.goBack()
+    /*const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const newDate = firebase.firestore.Timestamp.now();
     db.collection(`users/${currentUser.uid}/profile`).doc(this.state.key)
@@ -99,7 +98,8 @@ class MemoEditScreen extends React.Component {
       })
       .catch((error) => {
         console.log(error);
-      });
+      });*/
+
   }
   
   componentWillMount() {
@@ -121,8 +121,9 @@ class MemoEditScreen extends React.Component {
         <TextInput
           style={styles.input}
           value={this.state.name}
-          
-          
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Email Address"
           onChangeText={(text) => { this.setState({ name: text }); }}
         />
         <Text style={styles.title}>
@@ -168,7 +169,7 @@ class MemoEditScreen extends React.Component {
             
         
         
-        <CircleButton name="check" onPress={() => this.handlePress(this.state)}/>
+        <CircleButton name="check" onPress={this.handlePress.bind(this)}/>
       </View>
     );
   }
@@ -199,4 +200,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemoEditScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(MemoEditScreen)

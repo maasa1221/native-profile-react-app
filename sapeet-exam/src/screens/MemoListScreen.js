@@ -9,18 +9,15 @@ class MemoListScreen extends React.Component {
   componentWillMount(){
     this.props.getProfile()
   }
-  componentWillUpdate(){
+  /*componentDidUpdate(){
     this.props.getProfile()
-  }
-  handlePress() {
-    this.props.navigation.navigate('MemoCreate');
-  }
+  }*/
   render() {
     
     return (
         <View style={styles.container}>
           <MemoList memoList={this.props.profile} navigation={this.props.navigation} />
-          <CircleButton name="plus" onPress={this.handlePress.bind(this)}/>
+          <CircleButton name="plus" onPress={ () => this.props.navigation.navigate('MemoCreate', { refresh: this.componentWillMount.bind(this)}) }/>
         </View>
     );
   }
