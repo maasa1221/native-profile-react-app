@@ -35,7 +35,7 @@ class MemoCreateScreen extends React.Component {
   }
   handlePress() {
       this.props.postProfile(this.state);
-      this.props.navigation.state.params.refresh()
+      //this.props.navigation.state.params.refresh()
       this.props.navigation.goBack()
   }
 

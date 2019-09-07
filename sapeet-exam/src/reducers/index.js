@@ -1,5 +1,6 @@
 
 import { combineReducers } from 'redux'
+import { reduxTokenAuthReducer as reduxTokenAuth } from "redux-token-auth"
 //import {SET_USER_PROFILES} from '../actions';
 
 const initialState = { 
@@ -28,3 +29,7 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+combineReducers({
+  reducer,
+  reduxTokenAuth,
+ })

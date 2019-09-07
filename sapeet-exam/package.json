@@ -26,7 +26,8 @@
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "remote-redux-devtools": "^0.5.16"
+    "remote-redux-devtools": "^0.5.16",
+    "redux-token-auth": "zopelee/redux-token-auth"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",

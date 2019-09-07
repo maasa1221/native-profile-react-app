@@ -11,7 +11,7 @@ class LoginScreen extends React.Component {
   //ここは無しにする
 
   handleSubmit() {
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    /*firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         const resetAction = StackActions.reset({
           index: 0,
@@ -20,15 +20,12 @@ class LoginScreen extends React.Component {
         });
         this.props.navigation.dispatch(resetAction);
       })
-
       .catch(() => {
-      });
+      });*/
   }
-
   handlePress() {
     this.props.navigation.navigate('Signup')
   }
-
   handleChangePassword(text) {
     this.setState({ password: text });
   }

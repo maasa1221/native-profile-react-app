@@ -10,8 +10,11 @@ import { createStore,applyMiddleware,compose, } from 'redux'
 import reducer from './src/reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { verifyCredentials } from "./src/config/redux-token-auth-config"
+
 
 const store = createStore(reducer,applyMiddleware(thunk))
+verifyCredentials(store)
 
 const AppNavigator = createStackNavigator({
   Login:      { screen: MemoListScreen },
