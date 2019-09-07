@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { registerUser } from '../config/redux-token-auth-config'
 
 export function mapStateToProps(state) {
   return state;
@@ -22,6 +23,12 @@ export function mapDispatchToProps(dispatch) {
       axios.put('http://localhost:3001/profiles/'+ id,prof)
       .then(() => {
           dispatch({type:'UPDATE_USER_PROFILES'})
+      })
+    },
+    registerSuccess: (email,password) => {
+      registerUser({ email, password})
+        .then(() => {
+            dispatch({type:"REGISTER_SUCCESS"})
       })
     }
   }

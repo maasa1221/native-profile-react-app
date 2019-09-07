@@ -5792,7 +5792,7 @@ redux-thunk@^2.3.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
-redux-token-auth@zopelee/redux-token-auth:
+"redux-token-auth@github:zopelee/redux-token-auth":
   version "0.19.1"
   resolved "https://codeload.github.com/zopelee/redux-token-auth/tar.gz/3189f4d20025bcf316a43ce8d5fea72fb9f6edad"
   dependencies:

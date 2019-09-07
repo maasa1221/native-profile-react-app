@@ -1,17 +1,28 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
-import firebase from 'firebase';
+
 import { StackActions, NavigationActions } from 'react-navigation';
+import { registerUser }from '../config/redux-token-auth-config'
+import {mapStateToProps, mapDispatchToProps} from '../actions';
+import { connect,} from 'react-redux';
 
 
-class LoginScreen extends React.Component {
-state = {
+const initial_state = {
   email: 'maasa1221@gmail.com',
   password: '12211221mw',
 }
+class SignupScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = initial_state
+  }
+  
 
-handleSubmit() {
-  firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+handleSubmit=event => {
+  event.preventDefault()
+  const { registerUser, history } = this.props
+    const { email, password } = this.state
+    registerUser({ email, password })
     .then(() => {
       const resetAction = StackActions.reset({
         index: 0,
@@ -22,9 +33,22 @@ handleSubmit() {
     })
     .catch(() => {
     });
+  
+  /*firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' })],
+      });
+      this.props.navigation.dispatch(resetAction);
+    })
+    .catch(() => {
+    });*/
 }
 
   render() {
+    
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -91,4 +115,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default connect(
+  null,
+  { registerUser }
+)(SignupScreen)

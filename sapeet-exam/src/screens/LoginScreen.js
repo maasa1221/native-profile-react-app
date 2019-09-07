@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
-import firebase from 'firebase';
+import { signInUser } from '../config/redux-token-auth-config'
 import { StackActions, NavigationActions } from 'react-navigation';
-
+import {mapStateToProps, mapDispatchToProps} from '../actions';
+import { connect,} from 'react-redux';
 class LoginScreen extends React.Component {
   state = {
     email: 'maasa1221@gmail.com',
@@ -10,7 +11,21 @@ class LoginScreen extends React.Component {
   }
   //ここは無しにする
 
-  handleSubmit() {
+  handleSubmit=event => {
+    event.preventDefault()
+    const { signInUser, history } = this.props
+      const { email, password } = this.state
+    signInUser ({email, password}) 
+    .then(() => {
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' })],
+      });
+      this.props.navigation.dispatch(resetAction);
+    })
+    .catch(() => {
+    });
     /*firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         const resetAction = StackActions.reset({
@@ -107,4 +122,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+
+
+export default connect(
+  null,
+  { signInUser }
+)(LoginScreen)

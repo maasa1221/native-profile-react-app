@@ -13,7 +13,8 @@ const initialState = {
     updated_at: null,*/
   }
 }
-export default function reducer(state = initialState, action) {
+
+export default function reducer (state = initialState, action) {
   switch (action.type) {
       case 'SET_USER_PROFILES':
         return {profile: action.profile}
@@ -23,13 +24,31 @@ export default function reducer(state = initialState, action) {
           
       case 'UPDATE_USER_PROFILES':
         return 
+      
+      case "LOGIN_UPDATE_PARAMS":
+        return 
 
+      case "LOGIN_SUCCESS":
+          return 
+          
+      case "LOGIN_FAILURE":
+        return 
+
+      case "REGISTER_UPDATE_PARAMS":
+          return 
+    
+      case "REGISTER_SUCCESS":
+          return 
+              
+      case "REGISTER_FAILURE":
+        return 
+      
       default:
         return state;
   }
 }
 
-combineReducers({
-  reducer,
-  reduxTokenAuth,
- })
+
+
+
+ 
