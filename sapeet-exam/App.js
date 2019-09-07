@@ -17,7 +17,7 @@ const store = createStore(reducer,applyMiddleware(thunk))
 verifyCredentials(store)
 
 const AppNavigator = createStackNavigator({
-  Login:      { screen: MemoListScreen },
+  Login:      { screen: LoginScreen },
   Signup:     { screen: SignupScreen },
   Home:       { screen: MemoListScreen },
   MemoDetail: { screen: MemoDetailScreen },
