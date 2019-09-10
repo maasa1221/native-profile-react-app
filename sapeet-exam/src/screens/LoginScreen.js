@@ -6,7 +6,7 @@ import {mapStateToProps, mapDispatchToProps} from '../actions';
 import { connect,} from 'react-redux';
 class LoginScreen extends React.Component {
   state = {
-    email: 'maasa1221@gmail.com',
+    email: 'maasa0125@gmail.com',
     password: '12211221mw',
   }
   //ここは無しにする

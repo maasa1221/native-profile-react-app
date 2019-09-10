@@ -1,5 +1,16 @@
-import axios from 'axios'
-import { registerUser } from '../config/redux-token-auth-config'
+import axios from 'axios';
+import { registerUser } from '../config/redux-token-auth-config';
+import  {RNS3} from 'react-native-aws3';
+
+const options = {
+  keyPrefix: "uploads/",
+  bucket: "sapeetapp",
+  region: "ap-northeast-1",
+  accessKey: "AKIAIZYFR6T5ZIXATAXQ",
+  secretKey: "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",
+  successActionStatus: 201
+}
+
 
 export function mapStateToProps(state) {
   return state;
@@ -19,13 +30,21 @@ export function mapDispatchToProps(dispatch) {
           dispatch({type:'CREATE_USER_PROFILES'})
       })
     },
+    postPhoto: (photo) => {
+      RNS3.put(photo, options)
+      .then(response => {
+        if (response.status !== 201)
+          
+        console.log(response.body);
+      });
+    },
     putProfile: (prof) => {
       axios.put('http://localhost:3001/profiles/'+ id,prof)
       .then(() => {
           dispatch({type:'UPDATE_USER_PROFILES'})
       })
     },
-    registerSuccess: (email,password) => {
+    registerSuccess: ({email,password}) => {
       registerUser({ email, password})
         .then(() => {
             dispatch({type:"REGISTER_SUCCESS"})

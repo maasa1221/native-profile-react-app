@@ -12,7 +12,6 @@ import {mapStateToProps, mapDispatchToProps} from '../actions';
 class MemoCreateScreen extends React.Component {
   state = {
   }
-
   pickImage = async () => {
     let isAccepted = true
     const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL)
@@ -33,9 +32,15 @@ class MemoCreateScreen extends React.Component {
       }
     }
   }
+
   handlePress() {
+    file = {
+      uri: this.state.my_photo,
+      name: "image2.jpg",
+      type: "image/jpeg"
+    }
       this.props.postProfile(this.state);
-      //this.props.navigation.state.params.refresh()
+      this.props.postPhoto(file);
       this.props.navigation.goBack()
   }
 
@@ -126,6 +131,5 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MemoCreateScreen)

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Content, Header, Left, Button, Item, Input, Badge,Thumbnail } from 'native-base'
 
 import { StyleSheet, View, Text, TouchableHighlight, FlatList} from 'react-native';
-const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
+const tempAvatar = 'https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image.jpg'
 
 
 class MemoList extends React.Component {

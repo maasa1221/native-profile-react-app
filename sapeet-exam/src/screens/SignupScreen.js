@@ -8,7 +8,7 @@ import { connect,} from 'react-redux';
 
 
 const initial_state = {
-  email: 'maasa1221@gmail.com',
+  email: 'maasa0125@gmail.com',
   password: '12211221mw',
 }
 class SignupScreen extends React.Component {

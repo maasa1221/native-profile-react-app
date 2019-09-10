@@ -10,8 +10,10 @@ const config = {
   userRegistrationAttributes: {
     email: 'email',
     password: 'password'
-  }
-  
+  },
+  storage: {
+    flushGetRequests: false,
+  },
 }
 
 const {
