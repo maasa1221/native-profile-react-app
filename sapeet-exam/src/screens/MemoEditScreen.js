@@ -37,6 +37,7 @@ class MemoEditScreen extends React.Component {
 
       if (!result.cancelled) {
         this.setState({ my_photo: result.uri })
+        this.setState({ my_photo_bool: 1})
         console.log(result.uri)
       }
     }
@@ -44,6 +45,12 @@ class MemoEditScreen extends React.Component {
 
   handlePress() {
     this.props.putProfile(this.state)
+    file = {
+      uri: this.state.my_photo,
+      name: `image${this.state.name}.jpg`,
+      type: "image/jpeg"
+    }
+    this.props.postPhoto(file);
     this.props.navigation.goBack()
   }
   
@@ -96,7 +103,8 @@ class MemoEditScreen extends React.Component {
         <Text style={styles.title}>
         プロフィール画像
         </Text>
-        <Thumbnail large source={{uri: this.state.my_photo? this.state.my_photo : tempAvatar}} style={styles.avatar}/>
+        
+        <Thumbnail large source={{uri: this.state.my_photo_bool==true? `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${this.state.name}.jpg` : tempAvatar}} style={styles.avatar}/>
         <TouchableOpacity　onPress={this.pickImage}>
           <Text style={styles.signupText}>プロフィール画像変更</Text>
         </TouchableOpacity>

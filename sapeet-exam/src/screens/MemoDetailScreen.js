@@ -55,7 +55,8 @@ class MemoDetailScreen extends React.Component {
         <Text style={styles.title}>
         プロフィール画像
         </Text>
-        <Thumbnail large source={{uri: memo.my_photo? memo.my_photo : tempAvatar}} style={styles.avatar}/>
+        <Thumbnail large source={{uri: memo.my_photo_bool==true? `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${memo.name}.jpg` : tempAvatar}} style={styles.avatar}/>
+          
         <CircleButton
           name="pencil"
           color="white"
