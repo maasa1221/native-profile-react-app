@@ -2,20 +2,15 @@ import axios from 'axios';
 import { registerUser } from '../config/redux-token-auth-config';
 import  {RNS3} from 'react-native-aws3';
 
-const options = {
-  keyPrefix: "uploads/",
-  bucket: "sapeetapp",
-  region: "ap-northeast-1",
-  accessKey: "AKIAIZYFR6T5ZIXATAXQ",
-  secretKey: "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",
-  successActionStatus: 201
-}
+
 
 
 export function mapStateToProps(state) {
   return state;
 }
+
 id=1
+
 export function mapDispatchToProps(dispatch) {
   return{
     getProfile: () => {
@@ -31,11 +26,18 @@ export function mapDispatchToProps(dispatch) {
       })
     },
     postPhoto: (photo) => {
+      const options = {
+        keyPrefix: "uploads/",
+        bucket: "sapeetapp",
+        region: "ap-northeast-1",
+        accessKey: "AKIAIZYFR6T5ZIXATAXQ",
+        secretKey: "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",
+        successActionStatus: 201
+      }
       RNS3.put(photo, options)
       .then(response => {
         if (response.status !== 201)
-          
-        console.log(response.body);
+        throw new Error("Failed to upload image to S3");
       });
     },
     putProfile: (prof) => {

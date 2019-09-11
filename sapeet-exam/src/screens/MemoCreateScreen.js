@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Container, Content, Header, Left, Thumbnail, Button, Item, Input, Badge } from 'native-base'
-import axios from "axios"
-//import firebase from 'firebase';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import CircleButton from '../elements/CircleButton';
@@ -11,7 +11,12 @@ import {mapStateToProps, mapDispatchToProps} from '../actions';
 
 class MemoCreateScreen extends React.Component {
   state = {
+    my_photo_bool: 1
   }
+  radio_props = [
+    {label: '男', value: 0 },
+    {label: '女', value: 1 }
+  ];
   pickImage = async () => {
     let isAccepted = true
     const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL)
@@ -27,19 +32,21 @@ class MemoCreateScreen extends React.Component {
         aspect: [9, 9]
       })
       if (!result.cancelled) {
-        this.setState({ my_photo: result.uri })
+        this.setState({ my_photo: result.uri})
+        this.setState({ my_photo_bool: 0})
         console.log(result.uri)
       }
     }
   }
 
   handlePress() {
-    file = {
-      uri: this.state.my_photo,
-      name: "image2.jpg",
-      type: "image/jpeg"
-    }
+    
       this.props.postProfile(this.state);
+      file = {
+        uri: this.state.my_photo,
+        name: `image${this.state.name}.jpg`,
+        type: "image/jpeg"
+      }
       this.props.postPhoto(file);
       this.props.navigation.goBack()
   }
@@ -53,21 +60,16 @@ class MemoCreateScreen extends React.Component {
         <TextInput
           style={styles.input}
           value={this.state.name}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email Address"
+          placeholder="名前"
           onChangeText={(text) => { this.setState({ name: text }); }}
         />
         <Text style={styles.title}>
         性別
         </Text>
-        <TextInput
-          style={styles.input}
-          value={this.state.sex}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email Address"
-          onChangeText={(text) => { this.setState({ sex: text }); }}
+        <RadioForm
+          radio_props={this.radio_props}
+          initial={2}
+          onPress={(value) => {this.setState({sex:value})}}
         />
         <Text style={styles.title}>
         身長
@@ -77,8 +79,8 @@ class MemoCreateScreen extends React.Component {
           value={this.state.height}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email Address"
-          onChangeText={(text) => { this.setState({ height: text }); }}
+          placeholder="例:170"
+          onChangeText={(integer) => { this.setState({ height: integer }); }}
         />
         <Text style={styles.title}>
         年齢
@@ -88,8 +90,8 @@ class MemoCreateScreen extends React.Component {
           value={this.state.age}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email Address"
-          onChangeText={(text) => { this.setState({ age: text }); }}
+          placeholder="例:22"
+          onChangeText={(integer) => { this.setState({ age: integer }); }}
         />
         <Text style={styles.title}>
         プロフィール画像

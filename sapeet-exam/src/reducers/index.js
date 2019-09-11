@@ -20,10 +20,10 @@ export default function reducer (state = initialState, action) {
         return {profile: action.profile}
 
       case 'CREATE_USER_PROFILES':
-          return 
+          return {profile: action.profile}
           
       case 'UPDATE_USER_PROFILES':
-        return 
+        return {profile: action.profile}
       
       case "LOGIN_UPDATE_PARAMS":
         return 

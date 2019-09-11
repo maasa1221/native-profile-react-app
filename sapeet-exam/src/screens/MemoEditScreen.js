@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Container, Content, Header, Left, Button, Item, Input, Badge,Thumbnail } from 'native-base'
-import firebase from 'firebase';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
+import { Thumbnail } from 'native-base'
 import CircleButton from '../elements/CircleButton';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -15,6 +16,10 @@ class MemoEditScreen extends React.Component {
   state = {
     
   }
+  radio_props = [
+    {label: '男', value: 0 },
+    {label: '女', value: 1}
+  ];
   pickImage = async () => {
     let isAccepted = true
     const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL)
@@ -36,70 +41,10 @@ class MemoEditScreen extends React.Component {
       }
     }
   }
-/*
-  updateProfile = async (properties) => {
-    try{
-      this.setState({ uploading: true })
 
-      let downloadUrl = null
-      if (this.state.avatar) {
-        downloadUrl = await uploadAvatar(this.state.avatar)
-      }
-
-      const batch = db.batch()
-      const userRef = userCollection.doc(this.props.user.uid)
-
-      await batch.set(userRef, { name: properties.name, avatar: downloadUrl })
-      await batch.commit().then(() => {
-        console.log('edit user success.')
-      })
-
-      this.setState({
-        name: null,
-        avatar: null,
-      })
-
-      this.props.navigation.goBack()
-    }
-    catch(e) {
-      console.log(e)
-      alert('Upload avatar image failed, sorry :(')
-    }
-    finally {
-      this.setState({ uploading: false })
-    }
-  }*/
   handlePress() {
     this.props.putProfile(this.state)
     this.props.navigation.goBack()
-    /*const { currentUser } = firebase.auth();
-    const db = firebase.firestore();
-    const newDate = firebase.firestore.Timestamp.now();
-    db.collection(`users/${currentUser.uid}/profile`).doc(this.state.key)
-      .update({
-        name: this.state.name,
-        sex: this.state.sex,
-        height: this.state.height,
-        age: this.state.age,
-        my_photo: this.state.my_photo,
-        createdOn: new Date(),
-      })
-      .then(() => {
-        const { navigation } = this.props;
-        navigation.state.params.returnMemo({
-          name: this.state.name,
-          sex: this.state.sex,
-          height: this.state.height,
-          age: this.state.age,
-          my_photo: this.state.my_photo,
-          createdOn: newDate,
-        });
-        navigation.goBack();
-      })
-      .catch((error) => {
-        console.log(error);
-      });*/
-
   }
   
   componentWillMount() {
@@ -107,12 +52,7 @@ class MemoEditScreen extends React.Component {
     this.setState( params.memo );
   }
   
-  
-  
-
-
   render() {
-    
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -123,49 +63,43 @@ class MemoEditScreen extends React.Component {
           value={this.state.name}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email Address"
           onChangeText={(text) => { this.setState({ name: text }); }}
         />
         <Text style={styles.title}>
         性別
         </Text>
-        <TextInput
-          style={styles.input}
-          value={this.state.sex}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email Address"
-          onChangeText={(text) => { this.setState({ sex: text }); }}
+        <RadioForm
+          radio_props={this.radio_props}
+          initial={this.state.sex ? 0 : 1}
+          onPress={(value) => {this.setState({sex:value})}}
         />
         <Text style={styles.title}>
         身長
         </Text>
         <TextInput
           style={styles.input}
-          value={this.state.height}
+          keyboardType = 'numeric'
+          value={this.state.height.toString()}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email Address"
-          onChangeText={(text) => { this.setState({ height: text }); }}
         />
         <Text style={styles.title}>
         年齢
         </Text>
         <TextInput
           style={styles.input}
-          value={this.state.age}
+          value={this.state.age.toString()}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email Address"
           onChangeText={(text) => { this.setState({ age: text }); }}
         />
         <Text style={styles.title}>
         プロフィール画像
         </Text>
-        <TouchableOpacity　onPress={this.pickImage}>
-          <Text style={styles.signupText}>メンバー登録する</Text>
-        </TouchableOpacity>
         <Thumbnail large source={{uri: this.state.my_photo? this.state.my_photo : tempAvatar}} style={styles.avatar}/>
+        <TouchableOpacity　onPress={this.pickImage}>
+          <Text style={styles.signupText}>プロフィール画像変更</Text>
+        </TouchableOpacity>
             
         
         

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text,TextInput, TouchableOpacity } from 'react-native';
-import { Container, Content, Header, Left, Button, Item, Input, Badge,Thumbnail } from 'native-base'
+import { StyleSheet, View, Text} from 'react-native';
+import { Thumbnail } from 'native-base'
 import CircleButton from '../elements/CircleButton';
 
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
@@ -10,20 +10,13 @@ const dateString = (date) => {
   return str.split('T')[0];
 };
 
-
-
 class MemoDetailScreen extends React.Component {
   state = {
   }
-  
-  handlePress() {
-    const db = firebase.firestore();
-    const { currentUser } = firebase.auth();
-  }
+
   componentWillMount() {
     const { params } = this.props.navigation.state;
     this.setState(params);
-   
   }
   
   returnMemo(memo) {
@@ -46,47 +39,19 @@ class MemoDetailScreen extends React.Component {
         <Text style={styles.title}>
         名前
         </Text>
-        <TextInput
-          style={styles.input}
-          value={memo.name}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder={memo.name}
-          onChangeText={(text) => { this.setState({ name: text }); }}
-        />
+        <Text >{memo.name}</Text>
         <Text style={styles.title}>
         性別
         </Text>
-        <TextInput
-          style={styles.input}
-          value={memo.sex}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder={memo.sex}
-          onChangeText={(text) => { this.setState({ sex: text }); }}
-        />
+        <Text >{memo.sex ? "男" : "女"}</Text>
         <Text style={styles.title}>
         身長
         </Text>
-        <TextInput
-          style={styles.input}
-          value={memo.height}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder={memo.height}
-          onChangeText={(text) => { this.setState({ height: text }); }}
-        />
+        <Text >{memo.height}</Text>
         <Text style={styles.title}>
         年齢
         </Text>
-        <TextInput
-          style={styles.input}
-          value={memo.age}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder={memo.age}
-          onChangeText={(text) => { this.setState({ age: text }); }}
-        />
+        <Text >{memo.age}</Text>
         <Text style={styles.title}>
         プロフィール画像
         </Text>

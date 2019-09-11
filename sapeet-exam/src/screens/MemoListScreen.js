@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View , Text} from 'react-native';
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 import { connect,} from 'react-redux';
@@ -12,13 +12,18 @@ class MemoListScreen extends React.Component {
   /*componentDidUpdate(){
     this.props.getProfile()
   }*/
+
   render() {
     
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
+
           <MemoList memoList={this.props.profile} navigation={this.props.navigation} />
+          
           <CircleButton name="plus" onPress={ () => this.props.navigation.navigate('MemoCreate', { refresh: this.componentWillMount.bind(this)}) }/>
+          
         </View>
+        
     );
   }
 }
