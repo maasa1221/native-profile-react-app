@@ -33,22 +33,9 @@ handleSubmit=event => {
     })
     .catch(() => {
     });
-  
-  /*firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(() => {
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Home' })],
-      });
-      this.props.navigation.dispatch(resetAction);
-    })
-    .catch(() => {
-    });*/
 }
 
   render() {
-    
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -101,7 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   button: {
-    backgroundColor: '#E31676',
+    backgroundColor: '#00ccff',
     height: 48,
     borderRadius: 4,
     justifyContent: 'center',

@@ -23,7 +23,11 @@ export default function reducer (state = initialState, action) {
           return {profile: action.profile}
           
       case 'UPDATE_USER_PROFILES':
-        return {profile: action.profile}
+        console.log(state.profile[action.profile.id-1])
+        state.profile[action.profile.id-1]=action.profile
+        console.log(state.profile[action.profile.id-1])
+        console.log(state.profile)
+        return  {profile: state.profile}
       
       case "LOGIN_UPDATE_PARAMS":
         return 

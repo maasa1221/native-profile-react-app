@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text} from 'react-native';
 import { Thumbnail } from 'native-base'
 import CircleButton from '../elements/CircleButton';
-
+import styled from 'styled-components';
+import {mapStateToProps, mapDispatchToProps} from '../actions';
+import { connect,} from 'react-redux';
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
 
 const dateString = (date) => {
@@ -18,7 +20,6 @@ class MemoDetailScreen extends React.Component {
     const { params } = this.props.navigation.state;
     this.setState(params);
   }
-  
   returnMemo(memo) {
     this.setState({ memo });
   }
@@ -36,30 +37,32 @@ class MemoDetailScreen extends React.Component {
           </View>
         </View>
 
-        <Text style={styles.title}>
+        <Textout>
         名前
-        </Text>
-        <Text >{memo.name}</Text>
-        <Text style={styles.title}>
+        </Textout>
+        <Textin>{memo.name}</Textin>
+        <Textout>
         性別
-        </Text>
-        <Text >{memo.sex ? "男" : "女"}</Text>
-        <Text style={styles.title}>
+        </Textout>
+        <Textin>{memo.sex==false ? "男" : "女"}</Textin>
+        <Textout>
         身長
-        </Text>
-        <Text >{memo.height}</Text>
-        <Text style={styles.title}>
+        </Textout>
+        <Textin>{memo.height+"cm"}</Textin>
+        <Textout>
         年齢
-        </Text>
-        <Text >{memo.age}</Text>
-        <Text style={styles.title}>
+        </Textout>
+        <Textin>{memo.age+"才"}</Textin>
+        <Textout>
         プロフィール画像
-        </Text>
-        <Thumbnail large source={{uri: memo.my_photo_bool==true? `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${memo.name}.jpg` : tempAvatar}} style={styles.avatar}/>
-          
+        </Textout>
+        <Photo>
+        <Thumbnail large source={{uri: memo.my_photo_bool==true? `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${memo.name}.jpg` : tempAvatar}}/>
+        </Photo>
         <CircleButton
           name="pencil"
           color="white"
+          
           style={styles.editButton}
           onPress={() => {this.props.navigation.navigate('MemoEdit', { ...memo, returnMemo: this.returnMemo.bind(this),memo:memo }); }}
         />
@@ -68,6 +71,24 @@ class MemoDetailScreen extends React.Component {
   }
 }
 
+
+
+
+const Textout = styled.Text`
+  fontSize: 15px;
+  margin-left: 5px;
+  margin-top: 5px;
+`;
+
+const Textin = styled.Text`
+  fontSize: 15px;
+  margin: 10px; 
+`;
+
+const Photo = styled.View`
+  margin: 10px; 
+`;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,7 +96,7 @@ const styles = StyleSheet.create({
   },
   memoHeader: {
     height: 100,
-    backgroundColor: '#17313C',
+    backgroundColor: '#00ccff',
     justifyContent: 'center',
     padding: 10,
   },
@@ -114,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemoDetailScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(MemoDetailScreen)

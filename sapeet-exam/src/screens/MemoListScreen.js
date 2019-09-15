@@ -8,25 +8,25 @@ import {mapStateToProps, mapDispatchToProps} from '../actions';
 class MemoListScreen extends React.Component {
   componentWillMount(){
     this.props.getProfile()
+    
   }
-  /*componentDidUpdate(){
+  /*componentWillReceiveProps(){
     this.props.getProfile()
   }*/
 
+
+
+  
   render() {
-    
     return (
         <View style={styles.container} >
-
           <MemoList memoList={this.props.profile} navigation={this.props.navigation} />
-          
-          <CircleButton name="plus" onPress={ () => this.props.navigation.navigate('MemoCreate', { refresh: this.componentWillMount.bind(this)}) }/>
-          
+          <CircleButton name="plus" onPress={ () => this.props.navigation.navigate('MemoCreate') }/>
         </View>
-        
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -34,4 +34,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFDF6',
   },
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(MemoListScreen)

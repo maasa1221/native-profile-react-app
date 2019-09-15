@@ -8,8 +8,6 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { connect,} from 'react-redux';
 import {mapStateToProps, mapDispatchToProps} from '../actions';
-
-
 const tempAvatar = 'https://firebasestorage.googleapis.com/v0/b/novels-a5884.appspot.com/o/temp%2Ftemp.png?alt=media&token=a4d36af6-f5e8-49ad-b9c0-8b5d4d899c0d'
 
 class MemoEditScreen extends React.Component {
@@ -20,6 +18,7 @@ class MemoEditScreen extends React.Component {
     {label: '男', value: 0 },
     {label: '女', value: 1}
   ];
+
   pickImage = async () => {
     let isAccepted = true
     const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL)
@@ -34,29 +33,35 @@ class MemoEditScreen extends React.Component {
         allowsEditing: true,
         aspect: [9, 9]
       })
-
       if (!result.cancelled) {
-        this.setState({ my_photo: result.uri })
-        this.setState({ my_photo_bool: 1})
-        console.log(result.uri)
+        this.setState({ my_photo: result.uri ,my_photo_bool:1})
+        file = {
+          uri: this.state.my_photo,
+          name: `image${this.state.name}.jpg`,
+          type: "image/jpeg"
+        }
+        this.props.postPhoto(file);
       }
     }
   }
-
   handlePress() {
-    this.props.putProfile(this.state)
+    this.props.putProfile(this.state,this.state.id)
     file = {
       uri: this.state.my_photo,
       name: `image${this.state.name}.jpg`,
       type: "image/jpeg"
     }
-    this.props.postPhoto(file);
-    this.props.navigation.goBack()
+    this.props.postPhoto(file)
+    this.setState(this.state)
+    this.props.navigation.navigate('Home')
+    //console.log(this.state)
   }
-  
   componentWillMount() {
     const { params } = this.props.navigation.state;
     this.setState( params.memo );
+    }
+  componentDidMount(){
+    this.setState({my_photo: `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${this.state.name}.jpg`})
   }
   
   render() {
@@ -77,7 +82,7 @@ class MemoEditScreen extends React.Component {
         </Text>
         <RadioForm
           radio_props={this.radio_props}
-          initial={this.state.sex ? 0 : 1}
+          initial={this.state.sex == true ? 1 : 0}
           onPress={(value) => {this.setState({sex:value})}}
         />
         <Text style={styles.title}>
@@ -104,7 +109,7 @@ class MemoEditScreen extends React.Component {
         プロフィール画像
         </Text>
         
-        <Thumbnail large source={{uri: this.state.my_photo_bool==true? `https://sapeetapp.s3-ap-northeast-1.amazonaws.com/uploads/image${this.state.name}.jpg` : tempAvatar}} style={styles.avatar}/>
+        <Thumbnail large source={{uri: this.state.my_photo_bool==true? this.state.my_photo : tempAvatar}} style={styles.avatar}/>
         <TouchableOpacity　onPress={this.pickImage}>
           <Text style={styles.signupText}>プロフィール画像変更</Text>
         </TouchableOpacity>
