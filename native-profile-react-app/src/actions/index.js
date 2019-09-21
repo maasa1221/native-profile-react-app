@@ -4,11 +4,11 @@ import  {RNS3} from 'react-native-aws3';
 
 
 const options = {
-  keyPrefix: "uploads/",
-  bucket: "sapeetapp",
-  region: "ap-northeast-1",
-  accessKey: "AKIAIZYFR6T5ZIXATAXQ",
-  secretKey: "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",
+  keyPrefix: "",
+  bucket: "",
+  region: "",
+  accessKey: "",
+  secretKey: "",
   successActionStatus: 201
 }
 
